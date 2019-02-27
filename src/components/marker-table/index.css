@@ -31,3 +31,8 @@
   left: 160px;
   width: 80px;
 }
+
+.treeViewFixedColumn.detailedName {
+  left: 240px;
+  width: 200px;
+}

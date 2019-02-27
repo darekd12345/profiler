@@ -32,6 +32,7 @@ type MarkerDisplayData = {|
   duration: string,
   name: string,
   category: string,
+  detailedName: string,
 |};
 
 class MarkerTree {
@@ -84,11 +85,16 @@ class MarkerTree {
       const marker = this._markers[markerIndex];
       let category = 'unknown';
       let name = marker.name;
+      let detailedName = 'unknown';
       if (marker.data) {
         const data = marker.data;
 
         if (typeof data.category === 'string') {
           category = data.category;
+        }
+
+        if (typeof data.name === 'string') {
+          detailedName = data.name;
         }
 
         switch (data.type) {
@@ -138,6 +144,7 @@ class MarkerTree {
         duration: marker.incomplete ? 'unknown' : _formatDuration(marker.dur),
         name,
         category,
+        detailedName,
       };
       this._displayDataByIndex.set(markerIndex, displayData);
     }
@@ -186,6 +193,7 @@ class MarkerTable extends PureComponent<Props> {
     { propName: 'start', title: 'Start' },
     { propName: 'duration', title: 'Duration' },
     { propName: 'category', title: 'Category' },
+    { propName: 'detailedName', title: 'Name' },
   ];
   _mainColumn = { propName: 'name', title: '' };
   _expandedNodeIds: Array<IndexIntoMarkers | null> = [];
